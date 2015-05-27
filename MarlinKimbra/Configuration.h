@@ -34,7 +34,7 @@
 
 // This determines the communication speed of the printer
 // 115200 - 250000
-#define BAUDRATE 115200
+#define BAUDRATE 250000
 
 // This enables the serial port associated to the Bluetooth interface on AT90USB devices
 //#define BTENABLED
@@ -181,20 +181,20 @@
 // The minimal temperature defines the temperature below which the heater will not be enabled It is used
 // to check that the wiring to the thermistor is not broken.
 // Otherwise this would lead to the heater being powered on all the time.
-#define HEATER_0_MINTEMP 5 // (degC)
-#define HEATER_1_MINTEMP 5 // (degC)
-#define HEATER_2_MINTEMP 5 // (degC)
-#define HEATER_3_MINTEMP 5 // (degC)
-#define BED_MINTEMP      5 // (degC)
+#define HEATER_0_MINTEMP 5      // (degC)
+#define HEATER_1_MINTEMP 5      // (degC)
+#define HEATER_2_MINTEMP 5      // (degC)
+#define HEATER_3_MINTEMP 5      // (degC)
+#define BED_MINTEMP 5      // (degC)
 
 // When temperature exceeds max temp, your heater will be switched off.
 // This feature exists to protect your hotend from overheating accidentally, but *NOT* from thermistor short/failure!
 // You should use MINTEMP for thermistor short/failure protection.
-#define HEATER_0_MAXTEMP 275 // (degC)
-#define HEATER_1_MAXTEMP 275 // (degC)
-#define HEATER_2_MAXTEMP 275 // (degC)
-#define HEATER_3_MAXTEMP 275 // (degC)
-#define BED_MAXTEMP      150 // (degC)
+#define HEATER_0_MAXTEMP 275      // (degC)
+#define HEATER_1_MAXTEMP 275      // (degC)
+#define HEATER_2_MAXTEMP 275      // (degC)
+#define HEATER_3_MAXTEMP 275      // (degC)
+#define BED_MAXTEMP 150      // (degC)
 
 // If your bed has low resistance e.g. .6 ohm and throws the fuse you can duty cycle it to reduce the
 // average current. The value should be an integer and the heat bed will be turned on for 1 interval of
@@ -224,9 +224,9 @@
 #define K1 0.95 // Smoothing factor within the PID
 
 //             HotEnd{HE0,HE1,HE2,HE3}
-#define DEFAULT_Kp {40, 40, 40, 40}     // Kp for E0, E1, E2, E3
-#define DEFAULT_Ki {07, 07, 07, 07}     // Ki for E0, E1, E2, E3
-#define DEFAULT_Kd {60, 60, 60, 60}     // Kd for E0, E1, E2, E3
+#define DEFAULT_Kp {14.75,41.51,41.51,41.51}      // Kp for E0, E1, E2, E3
+#define DEFAULT_Ki {0.95,7.28,7.28,7.28}      // Ki for E0, E1, E2, E3
+#define DEFAULT_Kd {57.27,59.17,59.17,59.17}      // Kd for E0, E1, E2, E3
 //===========================================================================
 
 
@@ -255,9 +255,9 @@
 //#define PID_BED_DEBUG // Sends debug data to the serial port.
 //120v 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
 //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-#define  DEFAULT_bedKp 10.00
-#define  DEFAULT_bedKi .023
-#define  DEFAULT_bedKd 305.4
+#define DEFAULT_bedKp 10
+#define DEFAULT_bedKi 1
+#define DEFAULT_bedKd 305
 
 //120v 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
 //from pidautotune
@@ -328,7 +328,7 @@
 
 //#define ULTRA_LCD  //general LCD support, also 16x2
 //#define DOGLCD  // Support for SPI LCD 128x64 (Controller ST7565R graphic Display Family)
-//#define SDSUPPORT // Enable SD Card Support in Hardware Console
+#define SDSUPPORT // Enable SD Card Support in Hardware Console
 //#define SDSLOW // Use slower SD transfer mode (not normally needed - uncomment if you're getting volume init error)
 //#define SD_CHECK_AND_RETRY // Use CRC checks and retries on the SD communication
 //#define ENCODER_PULSES_PER_STEP 1 // Increase if you have a high resolution encoder
@@ -364,7 +364,7 @@
 // http://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
 // ==> REMEMBER TO INSTALL U8glib to your ARDUINO library folder: http://code.google.com/p/u8glib/wiki/u8glib
-//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
 
 // The RepRapWorld REPRAPWORLD_KEYPAD v1.1
 // http://reprapworld.com/?products_details&products_id=202&cPath=1591_1626
@@ -440,8 +440,8 @@
 // M501 - reads parameters from EEPROM (if you need reset them after you changed them temporarily).
 // M502 - reverts to the default "factory settings".  You still need to store them in EEPROM afterwards if you want to.
 //define this to enable EEPROM support
-//#define EEPROM_SETTINGS
-//#define EEPROM_CHITCHAT
+#define EEPROM_SETTINGS
+#define EEPROM_CHITCHAT
 // to disable EEPROM Serial responses and decrease program space by ~1700 byte: comment this out:
 // please keep turned on if you can.
 //#define DISABLE_M503
@@ -451,28 +451,28 @@
 //==================== Bowden Filament management ===========================
 //#define EASY_LOAD
 
-#define BOWDEN_LENGTH 250       // mm
-#define LCD_PURGE_LENGTH 3      // mm
-#define LCD_RETRACT_LENGTH 3    // mm
-#define LCD_PURGE_FEEDRATE 3    // mm/s
-#define LCD_RETRACT_FEEDRATE 10 // mm/s
-#define LCD_LOAD_FEEDRATE 8     // mm/s
-#define LCD_UNLOAD_FEEDRATE 8   // mm/s
+#define BOWDEN_LENGTH 250      // mm
+#define LCD_PURGE_LENGTH 10      // mm
+#define LCD_RETRACT_LENGTH 5      // mm
+#define LCD_PURGE_FEEDRATE 3      // mm/s
+#define LCD_RETRACT_FEEDRATE 5      // mm/s
+#define LCD_LOAD_FEEDRATE 20      // mm/s
+#define LCD_UNLOAD_FEEDRATE 20      // mm/s
 //===========================================================================
 
 
 //====================== Preheat Constants ==================================
-#define PLA_PREHEAT_HOTEND_TEMP 190
-#define PLA_PREHEAT_HPB_TEMP 60
-#define PLA_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
+#define PLA_PREHEAT_HOTEND_TEMP 200
+#define PLA_PREHEAT_HPB_TEMP 20
+#define PLA_PREHEAT_FAN_SPEED 255      // Insert Value between 0 and 255
 
-#define ABS_PREHEAT_HOTEND_TEMP 240
-#define ABS_PREHEAT_HPB_TEMP 100
-#define ABS_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
+#define ABS_PREHEAT_HOTEND_TEMP 250
+#define ABS_PREHEAT_HPB_TEMP 90
+#define ABS_PREHEAT_FAN_SPEED 255      // Insert Value between 0 and 255
 
 #define GUM_PREHEAT_HOTEND_TEMP 230
 #define GUM_PREHEAT_HPB_TEMP 60
-#define GUM_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
+#define GUM_PREHEAT_FAN_SPEED 255      // Insert Value between 0 and 255
 //===========================================================================
 
 
@@ -487,8 +487,8 @@
 // This allows for servo actuated endstops, primary usage is for the Z Axis to eliminate calibration or bed height changes.
 // Use M666 command to correct for switch height offset to actual nozzle height. Store that setting with M500.
 //
-#define SERVO_ENDSTOPS {-1,-1,0}            // Servo index for X, Y, Z. Disable with -1
-#define SERVO_ENDSTOP_ANGLES {0,0,0,0,90,0} // X,Y,Z Axis Extend and Retract angles
+#define SERVO_ENDSTOPS {-1,-1,0}      // Servo index for X, Y, Z. Disable with -1
+#define SERVO_ENDSTOP_ANGLES {0,0,0,0,90,0}      // X,Y,Z Axis Extend and Retract angles
 //===========================================================================
 
 
@@ -506,12 +506,12 @@
 // Uncomment below to enable
 //#define FILAMENT_SENSOR
 
-#define FILAMENT_SENSOR_EXTRUDER_NUM  0     //The number of the extruder that has the filament sensor (0,1,2,3)
+#define FILAMENT_SENSOR_EXTRUDER_NUM 0      // number of the extruder that has the filament sensor (0,1,2,3)
 #define MEASUREMENT_DELAY_CM         14     //measurement delay in cm.  This is the distance from filament sensor to middle of barrel
 
-#define DEFAULT_NOMINAL_FILAMENT_DIA  1.75  //Enter the diameter (in mm) of the filament generally used (3.0 mm or 1.75 mm) - this is then used in the slicer software.  Used for sensor reading validation
-#define MEASURED_UPPER_LIMIT          2.00  //upper limit factor used for sensor reading validation in mm
-#define MEASURED_LOWER_LIMIT          1.35  //lower limit factor for sensor reading validation in mm
+#define DEFAULT_NOMINAL_FILAMENT_DIA 1.75      // the diameter (in mm) of the filament generally used (3.0 mm or 1.75 mm) - this is then used in the slicer software. Used for sensor reading validation
+#define MEASURED_UPPER_LIMIT 2      // limit factor used for sensor reading validation in mm
+#define MEASURED_LOWER_LIMIT 1.35      // limit factor for sensor reading validation in mm
 #define MAX_MEASUREMENT_DELAY        20     //delay buffer size in bytes (1 byte = 1cm)- limits maximum measurement delay allowable (must be larger than MEASUREMENT_DELAY_CM  and lower number saves RAM)
 
 //defines used in the code
@@ -594,9 +594,9 @@
                                  // It is assumed that when logic high = filament available
                                  //                    when logic  low = filament run out
 #ifdef FILAMENT_RUNOUT_SENSOR
-  const bool FILRUNOUT_PIN_INVERTING = true;  // Should be uncommented and true or false should assigned
+const bool FILRUNOUT_PIN_INVERTING = false      // Should be uncommented and true or false should assigned
   #define ENDSTOPPULLUP_FIL_RUNOUT            // Uncomment to use internal pullup for filament runout pins if the sensor is defined.
-  #define FILAMENT_RUNOUT_SCRIPT "M600"       // Script execute when filament run out
+#define FILAMENT_RUNOUT_SCRIPT "M600"      // Script execute when filament run out
 #endif
 
 //===========================================================================
@@ -609,3 +609,296 @@
 #include "Configuration_adv.h"
 #include "thermistortables.h"
 #endif //__CONFIGURATION_H
+
+
+/* Below you will find the configuration string, that created with Configurator tool online marlinkimbra.it
+
+========== Start configuration string ==========
+{
+"printer": "prusa_i3_r2",
+"baudrates": 250000,
+"testmode": "0",
+"drivesystems": 0,
+"processor": 0,
+"motherboards": "BOARD_RAMPS_13_EFB",
+"extruders": 1,
+"singlenozzle": "0",
+"mkr4": "0",
+"npr2": "0",
+"power": "0",
+"defaultpower": "0",
+"E0E1pin": 5,
+"E0E2pin": 5,
+"E1E3pin": 6,
+"tempsensor0": "1",
+"tempsensor1": "0",
+"tempsensor2": "0",
+"tempsensor3": "0",
+"tempsensorbed": "1",
+"temp0pin": "ORIG_TEMP_0_PIN",
+"temp1pin": "ORIG_TEMP_1_PIN",
+"temp2pin": "ORIG_TEMP_2_PIN",
+"temp3pin": "ORIG_TEMP_3_PIN",
+"tempbedpin": "ORIG_TEMP_BED_PIN",
+"mintemp0": 5,
+"mintemp1": 5,
+"mintemp2": 5,
+"mintemp3": 5,
+"mintempbed": 5,
+"maxtemp0": 275,
+"maxtemp1": 275,
+"maxtemp2": 275,
+"maxtemp3": 275,
+"maxtempbed": 150,
+"pidtemp": "1",
+"pidkp0": 14.75,
+"pidki0": 0.95,
+"pidkd0": 57.27,
+"pidkp1": 41.51,
+"pidki1": 7.28,
+"pidkd1": 59.17,
+"pidkp2": 41.51,
+"pidki2": 7.28,
+"pidkd2": 59.17,
+"pidkp3": 41.51,
+"pidki3": 7.28,
+"pidkd3": 59.17,
+"pidbedtemp": "0",
+"pidbedkp": 10,
+"pidbedki": 1,
+"pidbedkd": 305,
+"dangerousextrude": "1",
+"lengthyextrude": "1",
+"extrudemintemp": 170,
+"autobed": "0",
+"zprobingrepeat": "0",
+"gridmode": "1",
+"gridpoint": 2,
+"Zsafehoming": "0",
+"ZsafehomingX": 100,
+"ZsafehomingY": 100,
+"leftprobe": 20,
+"rightprobe": 180,
+"backprobe": 180,
+"frontprobe": 20,
+"Xprobe1": 15,
+"Yprobe1": 180,
+"Xprobe2": 15,
+"Yprobe2": 15,
+"Xprobe3": 180,
+"Yprobe3": 15,
+"Xprobeoffset": 0,
+"Yprobeoffset": 0,
+"Zprobeoffset": -1,
+"Zraisebeforehoming": 10,
+"Zraisebeforeprobe": 10,
+"Zraisebetweenprobe": 10,
+"Xmotor": {
+  "name": "X motor",
+  "step": "ORIG_X_STEP_PIN",
+  "dir": "ORIG_X_DIR_PIN",
+  "enable": "ORIG_X_ENABLE_PIN"
+},
+"Ymotor": {
+  "name": "Y motor",
+  "step": "ORIG_Y_STEP_PIN",
+  "dir": "ORIG_Y_DIR_PIN",
+  "enable": "ORIG_Y_ENABLE_PIN"
+},
+"Zmotor": {
+  "name": "Z motor",
+  "step": "ORIG_Z_STEP_PIN",
+  "dir": "ORIG_Z_DIR_PIN",
+  "enable": "ORIG_Z_ENABLE_PIN"
+},
+"E0motor": {
+  "name": "Extruder 0",
+  "step": "ORIG_E0_STEP_PIN",
+  "dir": "ORIG_E0_DIR_PIN",
+  "enable": "ORIG_E0_ENABLE_PIN"
+},
+"E1motor": {
+  "name": "Extruder 1",
+  "step": "ORIG_E1_STEP_PIN",
+  "dir": "ORIG_E1_DIR_PIN",
+  "enable": "ORIG_E1_ENABLE_PIN"
+},
+"E2motor": {
+  "name": "Extruder 2",
+  "step": "ORIG_E2_STEP_PIN",
+  "dir": "ORIG_E2_DIR_PIN",
+  "enable": "ORIG_E2_ENABLE_PIN"
+},
+"E3motor": {
+  "name": "Extruder 3",
+  "step": "ORIG_E3_STEP_PIN",
+  "dir": "ORIG_E3_DIR_PIN",
+  "enable": "ORIG_E3_ENABLE_PIN"
+},
+"Xminpos": -10,
+"Xmaxpos": 240,
+"Yminpos": -58,
+"Ymaxpos": 270,
+"Zminpos": 0,
+"Zmaxpos": 240,
+"maxXYjerk": 15,
+"maxZjerk": 0.4,
+"maxEjerk": 5,
+"defaultaccelleration": 2000,
+"defaultretractionaccelleration": 4000,
+"defaulttravelaccelleration": 3000,
+"deltasegmentpersecond": 200,
+"deltadiagonalrod": 220,
+"deltasmoothrodoffset": 145,
+"deltaeffectoroffset": 20,
+"deltacarriageoffset": 20,
+"deltaprinterradius": 70,
+"deltaheight": 210,
+"deltaautoprecision": 0.1,
+"deltaautogrid": 20,
+"deltaXprobeoffset": 0,
+"deltaYprobeoffset": 0,
+"deltaZprobeoffset": -10,
+"deltaXdeploystart": 0,
+"deltaYdeploystart": 0,
+"deltaZdeploystart": 30,
+"deltaXdeployend": 0,
+"deltaYdeployend": 0,
+"deltaZdeployend": 0,
+"deltaXretractstart": 0,
+"deltaYretractstart": 0,
+"deltaZretractstart": 30,
+"deltaXretractend": 0,
+"deltaYretractend": 0,
+"deltaZretractend": 0,
+"Xmicrostep": 16,
+"Ymicrostep": 16,
+"Zmicrostep": 16,
+"Emicrostep": 16,
+"Xcurrent": 1000,
+"Ycurrent": 1000,
+"Zcurrent": 1000,
+"Ecurrent": 1000,
+"Xstepspermm": 160,
+"Ystepspermm": 160,
+"Zstepspermm": 6400,
+"E0stepspermm": 1240,
+"E1stepspermm": 625,
+"E2stepspermm": 625,
+"E3stepspermm": 625,
+"Xmaxspeed": 1000,
+"Ymaxspeed": 1000,
+"Zmaxspeed": 3,
+"E0maxspeed": 50,
+"E1maxspeed": 100,
+"E2maxspeed": 100,
+"E3maxspeed": 100,
+"E0retractionspeed": 100,
+"E1retractionspeed": 150,
+"E2retractionspeed": 150,
+"E3retractionspeed": 150,
+"Xhomingspeed": 100,
+"Yhomingspeed": 100,
+"Zhomingspeed": 3,
+"Xmaxacceleration": 5000,
+"Ymaxacceleration": 5000,
+"Zmaxacceleration": 50,
+"E0maxacceleration": 5000,
+"E1maxacceleration": 3000,
+"E2maxacceleration": 3000,
+"E3maxacceleration": 3000,
+"Xinvert": 0,
+"Yinvert": "1",
+"Zinvert": 0,
+"E0invert": "1",
+"E1invert": 0,
+"E2invert": 0,
+"E3invert": 0,
+"Xinvertenable": 0,
+"Yinvertenable": 0,
+"Zinvertenable": 0,
+"Einvertenable": 0,
+"disableX": 0,
+"disableY": "1",
+"disableZ": "1",
+"disableE": 0,
+"Xhoming": 0,
+"Yhoming": 0,
+"Zhoming": 0,
+"Ehoming": 0,
+"Xminendstop": "0",
+"Xmaxendstop": "0",
+"Yminendstop": "0",
+"Ymaxendstop": "0",
+"Zminendstop": "0",
+"Zmaxendstop": "0",
+"Eminendstop": "0",
+"Zprobeendstop": "0",
+"E0coolerpin": -1,
+"E1coolerpin": -1,
+"E2coolerpin": -1,
+"E3coolerpin": -1,
+"Ecoolerspeed": 255,
+"Ecoolertemp": 50,
+"fanpin": "ORIG_FAN_PIN",
+"sdsupport": "1",
+"eeprom": "1",
+"eepromchitchat": "1",
+"laserbeam": "0",
+"laserpwrpin": 42,
+"laserttlpin": 44,
+"toshiba": "0",
+"filamentrunout": "0",
+"filrunoutpin": -1,
+"filamentrunoutsensor": "0",
+"filamentrunoutscript": "M600",
+"servos": "0",
+"numservos": 0,
+"Xservo": "-1",
+"Yservo": "-1",
+"Zservo": "0",
+"angleextendservosX": 0,
+"angleretractservosX": 0,
+"angleextendservosY": 0,
+"angleretractservosY": 0,
+"angleextendservosZ": 90,
+"angleretractservosZ": 0,
+"displays": 5,
+"invertrotaryswitch": 0,
+"uilanguages": 7,
+"uiprintername": "R2",
+"easyload": 0,
+"bowdenlenght": 250,
+"lcdpurgelenght": 10,
+"lcdretractlenght": 5,
+"lcdpurgefeedrate": 3,
+"lcdretractfeedrate": 5,
+"lcdloadfeedrate": 20,
+"lcdunloadfeedrate": 20,
+"lcdprogressbar": 0,
+"lcdprogressbarbartime": 3,
+"lcdprogressbarmsgtime": 1,
+"lcdprogressbarmsgexpire": 0,
+"plahotendtemp": 200,
+"plabedtemp": 20,
+"plafanspeed": 255,
+"abshotendtemp": 250,
+"absbedtemp": 90,
+"absfanspeed": 255,
+"gumhotendtemp": 230,
+"gumbedtemp": 60,
+"gumfanspeed": 255,
+"filamentsensor": "0",
+"filamentsensorpin": -1,
+"filamentsensorlcd": "0",
+"filamentsensorextruder": 0,
+"filamentsensordia": 1.75,
+"filamentsensormaxdia": 2,
+"filamentsensormindia": 1.35,
+"filamentswitch": "0",
+"pausepin": 19,
+"disableE0": "1",
+"sdsetting": "1"
+}
+========== End configuration string ==========
+*/
