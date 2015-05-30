@@ -26,9 +26,9 @@
 #define Y_MIN_ENDSTOP_LOGIC false      // set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_LOGIC false      // set to true to invert the logic of the endstop.
 #define E_MIN_ENDSTOP_LOGIC false      // set to true to invert the logic of the endstop.
-#define X_MAX_ENDSTOP_LOGIC false      // set to true to invert the logic of the endstop.
-#define Y_MAX_ENDSTOP_LOGIC false      // set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_LOGIC false      // set to true to invert the logic of the endstop.
+#define X_MAX_ENDSTOP_LOGIC true      // set to true to invert the logic of the endstop.
+#define Y_MAX_ENDSTOP_LOGIC true      // set to true to invert the logic of the endstop.
+#define Z_MAX_ENDSTOP_LOGIC true      // set to true to invert the logic of the endstop.
 #define Z_PROBE_ENDSTOP_LOGIC false      // set to true to invert the logic of the endstop.
 
 // ENDSTOP SETTINGS:
@@ -204,7 +204,7 @@
 #define DEFAULT_TRAVEL_ACCELERATION 3000      // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
 //sf
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 3200, 620} //<-- step per unit R2 A4988 pulegge 20 denti
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { , 160, 6400, 1240} //<-- step per unit R2 DRV8825 pulegge 20 denti
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {160, 160, 6400, 1115} //<-- step per unit R2 DRV8825 pulegge 20 denti
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {100, 100, 3200, 620}  //<-- step per unit R2 A4988 pulegge 16 denti
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {200, 200, 6400, 1240}  //<-- step per unit R2 DRV8825 pulegge 16 denti
 #define DEFAULT_MAX_FEEDRATE          {1000, 1000, 3, 50}    // (mm/sec)
