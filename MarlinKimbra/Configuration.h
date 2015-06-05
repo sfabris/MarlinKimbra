@@ -402,7 +402,7 @@
 // #define LCD_SCREEN_ROT_270
 
 // SPLASH SCREEN duration in millisecond
-#define SPLASH_SCREEN_DURATION 2000 // Millisecond
+#define SPLASH_SCREEN_DURATION 1000 // Millisecond
 
 /** Display Voltage Logic Selector on Alligator Board
  0 = Voltage level 3.3V
@@ -427,7 +427,7 @@
 // 13 Basque-Euskera
 // 14 Portuguese (Brazil)
 
-#define LANGUAGE_CHOICE 7
+#define LANGUAGE_CHOICE 1
 
 
 //===========================================================================
@@ -449,24 +449,24 @@
 
 
 //==================== Bowden Filament management ===========================
-//#define EASY_LOAD
+#define EASY_LOAD
 
-#define BOWDEN_LENGTH 250      // mm
+#define BOWDEN_LENGTH 50      // mm
 #define LCD_PURGE_LENGTH 10      // mm
-#define LCD_RETRACT_LENGTH 5      // mm
+#define LCD_RETRACT_LENGTH 2      // mm
 #define LCD_PURGE_FEEDRATE 3      // mm/s
 #define LCD_RETRACT_FEEDRATE 5      // mm/s
-#define LCD_LOAD_FEEDRATE 20      // mm/s
-#define LCD_UNLOAD_FEEDRATE 20      // mm/s
+#define LCD_LOAD_FEEDRATE 10      // mm/s
+#define LCD_UNLOAD_FEEDRATE 10      // mm/s
 //===========================================================================
 
 
 //====================== Preheat Constants ==================================
 #define PLA_PREHEAT_HOTEND_TEMP 200
-#define PLA_PREHEAT_HPB_TEMP 20
+#define PLA_PREHEAT_HPB_TEMP 50
 #define PLA_PREHEAT_FAN_SPEED 255      // Insert Value between 0 and 255
 
-#define ABS_PREHEAT_HOTEND_TEMP 250
+#define ABS_PREHEAT_HOTEND_TEMP 240
 #define ABS_PREHEAT_HPB_TEMP 90
 #define ABS_PREHEAT_FAN_SPEED 255      // Insert Value between 0 and 255
 
