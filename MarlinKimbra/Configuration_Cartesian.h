@@ -1,6 +1,6 @@
 // Define this to set a custom name for your generic Mendel,
 // Displayed in the LCD "Ready" message
-#define CUSTOM_MACHINE_NAME "Prusa"
+#define CUSTOM_MACHINE_NAME "R2"
 
 //===========================================================================
 //=============================Mechanical Settings===========================
@@ -33,6 +33,7 @@
 #define Z2_MAX_ENDSTOP_LOGIC  false   // set to true to invert the logic of the endstop.
 #define Z_PROBE_ENDSTOP_LOGIC false   // set to true to invert the logic of the endstop.
 
+
 // ENDSTOP SETTINGS:
 // Sets direction of endstop when homing; 1=MAX, -1=MIN
 #define X_HOME_DIR -1
@@ -52,28 +53,38 @@
 
 // Disables axis when it's not being used.
 #define DISABLE_X false
-#define DISABLE_Y false
-#define DISABLE_Z false
+#define DISABLE_Y true
+#define DISABLE_Z true
 #define DISABLE_E false      // For all extruder
 #define DISABLE_INACTIVE_EXTRUDER false //disable only inactive extruder and keep active extruder enabled
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR false
-#define INVERT_Y_DIR false
+#define INVERT_Y_DIR true
 #define INVERT_Z_DIR false
-#define INVERT_E0_DIR false
+#define INVERT_E0_DIR true
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
 
 // Travel limits after homing (units are in mm)
-#define X_MAX_POS 200
-#define X_MIN_POS 0
-#define Y_MAX_POS 200
-#define Y_MIN_POS 0
-#define Z_MAX_POS 200
+
+/*
+#define X_MAX_POS 240
+#define X_MIN_POS -10
+#define Y_MAX_POS 270
+#define Y_MIN_POS -58
+#define Z_MAX_POS 240
 #define Z_MIN_POS 0
 #define E_MIN_POS 0
+*/
+
+#define X_MAX_POS 240
+#define X_MIN_POS -20
+#define Y_MAX_POS 270
+#define Y_MIN_POS -60
+#define Z_MAX_POS 240
+#define Z_MIN_POS 0
 
 //=====================================================================================
 //================ Manual Bed Leveling (MBL) or Auto Bed Leveling =====================
@@ -121,32 +132,32 @@
 
     // Set the number of grid points per dimension
     // You probably don't need more than 3 (squared=9)
-    #define AUTO_BED_LEVELING_GRID_POINTS 2
+#define AUTO_BED_LEVELING_GRID_POINTS 2
 
   #else  // not AUTO_BED_LEVELING_GRID
 
     // Arbitrary points to probe. A simple cross-product
     // is used to estimate the plane of the bed.
-    #define ABL_PROBE_PT_1_X 15
-    #define ABL_PROBE_PT_1_Y 180
-    #define ABL_PROBE_PT_2_X 15
-    #define ABL_PROBE_PT_2_Y 20
-    #define ABL_PROBE_PT_3_X 170
-    #define ABL_PROBE_PT_3_Y 20
+#define ABL_PROBE_PT_1_X 30
+#define ABL_PROBE_PT_1_Y 160
+#define ABL_PROBE_PT_2_X 30
+#define ABL_PROBE_PT_2_Y 30
+#define ABL_PROBE_PT_3_X 160
+#define ABL_PROBE_PT_3_Y 30
 
   #endif // AUTO_BED_LEVELING_GRID
 
   // Offsets to the probe relative to the extruder tip (Hotend - Probe)
   // X and Y offsets MUST be INTEGERS
-  #define X_PROBE_OFFSET_FROM_EXTRUDER 0      // Probe on: -left  +right
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER 0      // Probe on: -front +behind
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -1     // -below (always!)
+#define X_PROBE_OFFSET_FROM_EXTRUDER 0      // Probe on: -left +right
+#define Y_PROBE_OFFSET_FROM_EXTRUDER 0      // Probe on: -front +behind
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -1      // -below (always!)
 
-  #define Z_RAISE_BEFORE_HOMING       10      // (in mm) Raise Z before homing (G28) for Probe Clearance.
+#define Z_RAISE_BEFORE_HOMING 10      // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                               // Be sure you have this distance over your Z_MAX_POS in case
 
-  #define Z_RAISE_BEFORE_PROBING      10      //How much the extruder will be raised before travelling to the first probing point.
-  #define Z_RAISE_BETWEEN_PROBINGS     5      //How much the extruder will be raised when travelling from between next probing points
+#define Z_RAISE_BEFORE_PROBING 10      // much the extruder will be raised before travelling to the first probing point.
+#define Z_RAISE_BETWEEN_PROBINGS 10      // much the extruder will be raised when travelling from between next probing points
   #define Z_RAISE_AFTER_PROBING        5      //How much the extruder will be raised after the last probing point.
 
   //#define Z_PROBE_SLED                // turn on if you have a z-probe mounted on a sled like those designed by Charles Bell
@@ -183,15 +194,34 @@
 #endif
 
 // MOVEMENT SETTINGS
-#define HOMING_FEEDRATE {100*60, 100*60, 2*60, 0}      // set the homing speeds (mm/min)
+#define HOMING_FEEDRATE {100*60,100*60,3*60,0}      // set the homing speeds (mm/min)
 
-// default settings
-#define DEFAULT_AXIS_STEPS_PER_UNIT     {80,80,3200,625,625,625,625}       // X, Y, Z, E0, E1, E2, E3 default steps per unit
-#define DEFAULT_MAX_FEEDRATE            {300,300,2,100,100,100,100}        // X, Y, Z, E0, E1, E2, E3 (mm/sec)
-#define DEFAULT_MAX_ACCELERATION        {3000,3000,50,1000,1000,1000,1000} // X, Y, Z, E0, E1, E2, E3 maximum start speed for accelerated moves.
-#define DEFAULT_ACCELERATION          2500      // X, Y, Z and E max acceleration in mm/s^2 for printing moves
-#define DEFAULT_RETRACT_ACCELERATION 10000      // E max acceleration in mm/s^2 for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   3000      // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
+
+//#define DEFAULT_AXIS_STEPS_PER_UNIT {80,80,3200,620,625,625,625}      // X, Y, Z, E0, E1, E2, E3 default steps per unit
+//#define DEFAULT_MAX_FEEDRATE {1000,1000,3,50,100,100,100}      // X, Y, Z, E0, E1, E2, E3 (mm/sec)
+//#define DEFAULT_RETRACTION_MAX_FEEDRATE {100,150,150,150}      // E0, E1, E2, E3 (mm/sec)
+//#define DEFAULT_MAX_ACCELERATION {5000,5000,50,5000,3000,3000,3000}      // X, Y, Z, E0, E1, E2, E3 maximum start speed for accelerated moves.
+
+#define DEFAULT_ACCELERATION 2000      // X, Y, Z and E max acceleration in mm/s^2 for printing moves
+#define DEFAULT_RETRACT_ACCELERATION 4000      // E max acceleration in mm/s^2 for retracts
+#define DEFAULT_TRAVEL_ACCELERATION 3000      // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
+//sf
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 3200, 620} //<-- step per unit R2 A4988 pulegge 20 denti
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {160, 160, 6400, 1115} //<-- step per unit R2 DRV8825 pulegge 20 denti
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {100, 100, 3200, 620}  //<-- step per unit R2 A4988 pulegge 16 denti
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {200, 200, 6400, 1240}  //<-- step per unit R2 DRV8825 pulegge 16 denti
+#define DEFAULT_MAX_FEEDRATE          {500, 500, 4, 25}    // (mm/sec)
+#define DEFAULT_MAX_ACCELERATION      {1500,1500,20,2000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
+
+#define DEFAULT_ACCELERATION          1500    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  2000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
+#define DEFAULT_RETRACTION_MAX_FEEDRATE {100,150,150,150}
+// Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
+// The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
+// For the other hotends it is their distance from the extruder 0 hotend.
+// #define EXTRUDER_OFFSET_X {0.0, 20.00} // (in mm) for each extruder, offset of the hotend on the X axis
+// #define EXTRUDER_OFFSET_Y {0.0, 5.00}  // (in mm) for each extruder, offset of the hotend on the Y axis
+
 
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
@@ -200,9 +230,9 @@
 //#define HOTEND_OFFSET_Y {0.0, 5.00, 0.0, 0.0} // (in mm) for each extruder, offset of the hotend on the Y axis
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
-#define DEFAULT_XYJERK 10.0     // (mm/sec)
-#define DEFAULT_ZJERK   0.4     // (mm/sec)
-#define DEFAULT_EJERK   5.0     // (mm/sec)
+#define DEFAULT_XYJERK 15      // (mm/sec)
+#define DEFAULT_ZJERK 0.4      // (mm/sec)
+#define DEFAULT_EJERK 5      // (mm/sec)
 
 //===========================================================================
 //=============================Additional Features===========================
