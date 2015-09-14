@@ -43,6 +43,7 @@
 #define MSG_PREHEAT_GUM_ALL                 "Preheat GUM All"
 #define MSG_PREHEAT_GUM_BEDONLY             "Preheat GUM Bed"
 #define MSG_PREHEAT_GUM_SETTINGS            "Preheat GUM conf"
+#define MSG_TOO_COLD_FOR_M600               "M600 Hotend too cold to change filament"
 #define MSG_COOLDOWN                        "Refredar"
 #define MSG_SWITCH_PS_ON                    "Switch power on"
 #define MSG_SWITCH_PS_OFF                   "Switch power off"
@@ -72,6 +73,9 @@
 #define MSG_PID_P                           "PID-P"
 #define MSG_PID_I                           "PID-I"
 #define MSG_PID_D                           "PID-D"
+#define MSG_H1                              " H1"
+#define MSG_H2                              " H2"
+#define MSG_H3                              " H3"
 #define MSG_ACC                             "Accel"
 #define MSG_VXY_JERK                        "Vxy-jerk"
 #define MSG_VZ_JERK                         "Vz-jerk"
@@ -136,15 +140,25 @@
 #define MSG_BABYSTEP_Y                      "Babystep Y"
 #define MSG_BABYSTEP_Z                      "Babystep Z"
 #define MSG_ENDSTOP_ABORT                   "Endstop abort"
-
 #define MSG_HEATING_FAILED_LCD              "Heating failed"
 #define MSG_ERR_REDUNDANT_TEMP              "Err: REDUNDANT TEMP ERROR"
 #define MSG_THERMAL_RUNAWAY                 "THERMAL RUNAWAY"
 #define MSG_ERR_MAXTEMP                     "Err: MAXTEMP"
 #define MSG_ERR_MINTEMP                     "Err: MINTEMP"
 #define MSG_ERR_MAXTEMP_BED                 "Err: MAXTEMP BED"
+#define MSG_ERR_MINTEMP_BED                 "Err: MINTEMP BED"
+#define MSG_END_DAY                         "days"
+#define MSG_END_HOUR                        "hours"
+#define MSG_END_MINUTE                      "minutes"
 
-#ifdef DELTA
+// Debug
+#define MSG_DEBUG_ECHO                      "DEBUG ECHO ENABLED"
+#define MSG_DEBUG_INFO                      "DEBUG INFO ENABLED"
+#define MSG_DEBUG_ERRORS                    "DEBUG ERRORS ENABLED"
+#define MSG_DEBUG_DRYRUN                    "DEBUG DRYRUN ENABLED"
+
+// Calibrate Delta
+#if MECH(DELTA)
   #define MSG_DELTA_CALIBRATE               "Delta Calibration"
   #define MSG_DELTA_CALIBRATE_X             "Calibrate X"
   #define MSG_DELTA_CALIBRATE_Y             "Calibrate Y"
@@ -152,26 +166,36 @@
   #define MSG_DELTA_CALIBRATE_CENTER        "Calibrate Center"
 #endif // DELTA
 
-#ifdef SCARA
+// Scara
+#if MECH(SCARA)
   #define MSG_XSCALE                        "X Scale"
   #define MSG_YSCALE                        "Y Scale"
 #endif
 
+#define MSG_HEATING                         "Heating..."
+#define MSG_HEATING_COMPLETE                "Heating done."
+#define MSG_BED_HEATING                     "Bed Heating."
+#define MSG_BED_DONE                        "Bed done."
+
+// Extra
 #define MSG_LASER                           "Laser Preset"
 #define MSG_CONFIG                          "Configuration"
-#define MSG_BAUDRATE                        "Baudrate"
 #define MSG_E_BOWDEN_LENGTH                 "Extrude " STRINGIFY(BOWDEN_LENGTH) "mm"
 #define MSG_R_BOWDEN_LENGTH                 "Retract " STRINGIFY(BOWDEN_LENGTH) "mm"
 #define MSG_PURGE_XMM                       "Purge " STRINGIFY(LCD_PURGE_LENGTH) "mm"
 #define MSG_RETRACT_XMM                     "Retract " STRINGIFY(LCD_RETRACT_LENGTH) "mm"
+#define MSG_SAVED_POS                       "Saved position"
+#define MSG_RESTORING_POS                   "Restoring position"
+#define MSG_INVALID_POS_SLOT                "Invalid slot, total slots: "
 
-#ifdef FIRMWARE_TEST
+// Firmware Test
+#if ENABLED(FIRMWARE_TEST)
   #define MSG_FWTEST_YES                    "Put the Y command to go next"
   #define MSG_FWTEST_NO                     "Put the N command to go next"
   #define MSG_FWTEST_YES_NO                 "Put the Y or N command to go next"
   #define MSG_FWTEST_ENDSTOP_ERR            "ENDSTOP ERROR! Check wire and connection"
   #define MSG_FWTEST_PRESS                  "Press and hold the endstop "
-  #define MSG_FWTEST_INVERT                 "Reverse value in "
+  #define MSG_FWTEST_INVERT                 "Reverse value of "
   #define MSG_FWTEST_XAXIS                  "Has the nozzle moved to the right?"
   #define MSG_FWTEST_YAXIS                  "Has the nozzle moved forward?"
   #define MSG_FWTEST_ZAXIS                  "Has the nozzle moved up?"
@@ -181,6 +205,10 @@
   #define MSG_FWTEST_04                     "Start check MOTOR"
   #define MSG_FWTEST_ATTENTION              "ATTENTION! Check that the three axes are more than 5 mm from the endstop!"
   #define MSG_FWTEST_END                    "Finish Test. Disable FIRMWARE_TEST and recompile."
+  #define MSG_FWTEST_INTO                    "into "
+  #define MSG_FWTEST_ERROR                   "ERROR"
+  #define MSG_FWTEST_OK                      "OK"
+  #define MSG_FWTEST_NDEF                    "not defined"
 #endif // FIRMWARE_TEST
 
 #endif // LANGUAGE_EN_H

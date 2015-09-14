@@ -17,8 +17,9 @@
  * along with the Arduino SdFat Library.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include "Marlin.h"
-#ifdef SDSUPPORT
+#include "base.h"
+#include "Marlin_main.h"
+#if ENABLED(SDSUPPORT)
 
 #include "SdVolume.h"
 //------------------------------------------------------------------------------

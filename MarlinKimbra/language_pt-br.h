@@ -8,12 +8,12 @@
 #ifndef LANGUAGE_PT_BR_H
 #define LANGUAGE_PT_BR_H
 
-#if !( defined(MAPPER_NON)|| defined(MAPPER_C2C3)|| defined(MAPPER_D0D1)|| defined(MAPPER_D0D1_MOD)|| defined(MAPPER_E382E383) )
+#if !( ENABLED(MAPPER_NON)|| ENABLED(MAPPER_C2C3)|| ENABLED(MAPPER_D0D1)|| ENABLED(MAPPER_D0D1_MOD)|| ENABLED(MAPPER_E382E383) )
   #define MAPPER_NON         // For direct asci codes
 #endif
 
 //#define SIMULATE_ROMFONT //Comment in to see what is seen on the character based displays
-#if !( defined(SIMULATE_ROMFONT)|| defined(DISPLAY_CHARSET_ISO10646_1)|| defined(DISPLAY_CHARSET_ISO10646_5)|| defined(DISPLAY_CHARSET_ISO10646_KANA) )
+#if !( ENABLED(SIMULATE_ROMFONT)|| ENABLED(DISPLAY_CHARSET_ISO10646_1)|| ENABLED(DISPLAY_CHARSET_ISO10646_5)|| ENABLED(DISPLAY_CHARSET_ISO10646_KANA) )
   #define DISPLAY_CHARSET_ISO10646_1 // use the better font on full graphic displays.
 #endif
 
@@ -152,7 +152,7 @@
 #define MSG_ERR_MAXTEMP_BED                 "Err: MAXTEMP BED"
 
 
-#ifdef DELTA
+#if MECH(DELTA)
   #define MSG_DELTA_CALIBRATE               "Delta Calibration"
   #define MSG_DELTA_CALIBRATE_X             "Calibrate X"
   #define MSG_DELTA_CALIBRATE_Y             "Calibrate Y"
@@ -160,7 +160,7 @@
   #define MSG_DELTA_CALIBRATE_CENTER        "Calibrate Center"
 #endif // DELTA
 
-#ifdef SCARA
+#if MECH(SCARA)
   #define MSG_XSCALE                        "X Scale"
   #define MSG_YSCALE                        "Y Scale"
 #endif
@@ -172,13 +172,13 @@
 #define MSG_PURGE_XMM                       "Purge " STRINGIFY(LCD_PURGE_LENGTH) "mm"
 #define MSG_RETRACT_XMM                     "Retract " STRINGIFY(LCD_RETRACT_LENGTH) "mm"
 
-#ifdef FIRMWARE_TEST
+#if ENABLED(FIRMWARE_TEST)
   #define MSG_FWTEST_YES                    "Put the Y command to go next"
   #define MSG_FWTEST_NO                     "Put the N command to go next"
   #define MSG_FWTEST_YES_NO                 "Put the Y or N command to go next"
   #define MSG_FWTEST_ENDSTOP_ERR            "ENDSTOP ERROR! Check wire and connection"
   #define MSG_FWTEST_PRESS                  "Press and hold the endstop "
-  #define MSG_FWTEST_INVERT                 "Reverse value in "
+  #define MSG_FWTEST_INVERT                 "Reverse value of "
   #define MSG_FWTEST_XAXIS                  "Has the nozzle moved to the right?"
   #define MSG_FWTEST_YAXIS                  "Has the nozzle moved forward?"
   #define MSG_FWTEST_ZAXIS                  "Has the nozzle moved up?"
@@ -188,6 +188,10 @@
   #define MSG_FWTEST_04                     "Start check MOTOR"
   #define MSG_FWTEST_ATTENTION              "ATTENTION! Check that the three axes are more than 5 mm from the endstop!"
   #define MSG_FWTEST_END                    "Finish Test. Disable FIRMWARE_TEST and recompile."
+  #define MSG_FWTEST_INTO                    "into "
+  #define MSG_FWTEST_ERROR                   "ERROR"
+  #define MSG_FWTEST_OK                      "OK"
+  #define MSG_FWTEST_NDEF                    "not defined"
 #endif // FIRMWARE_TEST
 
 #endif // LANGUAGE_PT_BR_H

@@ -152,16 +152,87 @@
 #define E3_ENABLE_WRITE(STATE) WRITE(E3_ENABLE_PIN,STATE)
 #define E3_ENABLE_READ READ(E3_ENABLE_PIN)
 
+#if ENABLED(DUAL_X_CARRIAGE) && HAS(X_ENABLE) && HAS(X2_ENABLE)
+  #define  enable_x() do { X_ENABLE_WRITE( X_ENABLE_ON); X2_ENABLE_WRITE( X_ENABLE_ON); } while (0)
+  #define disable_x() do { X_ENABLE_WRITE(!X_ENABLE_ON); X2_ENABLE_WRITE(!X_ENABLE_ON); axis_known_position[X_AXIS] = false; } while (0)
+#elif HAS(X_ENABLE)
+  #define  enable_x() X_ENABLE_WRITE( X_ENABLE_ON)
+  #define disable_x() { X_ENABLE_WRITE(!X_ENABLE_ON); axis_known_position[X_AXIS] = false; }
+#else
+  #define enable_x() ;
+  #define disable_x() ;
+#endif
+
+#if HAS(Y_ENABLE)
+  #if ENABLED(Y_DUAL_STEPPER_DRIVERS)
+    #define  enable_y() { Y_ENABLE_WRITE( Y_ENABLE_ON); Y2_ENABLE_WRITE(Y_ENABLE_ON); }
+    #define disable_y() { Y_ENABLE_WRITE(!Y_ENABLE_ON); Y2_ENABLE_WRITE(!Y_ENABLE_ON); axis_known_position[Y_AXIS] = false; }
+  #else
+    #define  enable_y() Y_ENABLE_WRITE( Y_ENABLE_ON)
+    #define disable_y() { Y_ENABLE_WRITE(!Y_ENABLE_ON); axis_known_position[Y_AXIS] = false; }
+  #endif
+#else
+  #define enable_y() ;
+  #define disable_y() ;
+#endif
+
+#if HAS(Z_ENABLE)
+  #if ENABLED(Z_DUAL_STEPPER_DRIVERS)
+    #define  enable_z() { Z_ENABLE_WRITE( Z_ENABLE_ON); Z2_ENABLE_WRITE(Z_ENABLE_ON); }
+    #define disable_z() { Z_ENABLE_WRITE(!Z_ENABLE_ON); Z2_ENABLE_WRITE(!Z_ENABLE_ON); axis_known_position[Z_AXIS] = false; }
+  #else
+    #define  enable_z() Z_ENABLE_WRITE( Z_ENABLE_ON)
+    #define disable_z() { Z_ENABLE_WRITE(!Z_ENABLE_ON); axis_known_position[Z_AXIS] = false; }
+  #endif
+#else
+  #define enable_z() ;
+  #define disable_z() ;
+#endif
+
+#if HAS(E0_ENABLE)
+  #define enable_e0()  E0_ENABLE_WRITE( E_ENABLE_ON)
+  #define disable_e0() E0_ENABLE_WRITE(!E_ENABLE_ON)
+#else
+  #define enable_e0()  /* nothing */
+  #define disable_e0() /* nothing */
+#endif
+
+#if (DRIVER_EXTRUDERS > 1) && HAS(E1_ENABLE)
+  #define enable_e1()  E1_ENABLE_WRITE( E_ENABLE_ON)
+  #define disable_e1() E1_ENABLE_WRITE(!E_ENABLE_ON)
+#else
+  #define enable_e1()  /* nothing */
+  #define disable_e1() /* nothing */
+#endif
+
+#if (DRIVER_EXTRUDERS > 2) && HAS(E2_ENABLE)
+  #define enable_e2()  E2_ENABLE_WRITE( E_ENABLE_ON)
+  #define disable_e2() E2_ENABLE_WRITE(!E_ENABLE_ON)
+#else
+  #define enable_e2()  /* nothing */
+  #define disable_e2() /* nothing */
+#endif
+
+#if (DRIVER_EXTRUDERS > 3) && HAS(E3_ENABLE)
+  #define enable_e3()  E3_ENABLE_WRITE( E_ENABLE_ON)
+  #define disable_e3() E3_ENABLE_WRITE(!E_ENABLE_ON)
+#else
+  #define enable_e3()  /* nothing */
+  #define disable_e3() /* nothing */
+#endif
+
+#define disable_e() {disable_e0(); disable_e1(); disable_e2(); disable_e3();}
+
 //////////////////////////////////
 // Pin redefines for TMC drivers. 
 // TMC26X drivers have step and dir on normal pins, but everything else via SPI
 //////////////////////////////////
-#ifdef HAVE_TMCDRIVER
+#if ENABLED(HAVE_TMCDRIVER)
 #include <SPI.h>
 #include <TMC26XStepper.h>
 
   void tmc_init();
-#ifdef X_IS_TMC
+#if ENABLED(X_IS_TMC)
    extern TMC26XStepper stepperX;
    #undef X_ENABLE_INIT 
    #define X_ENABLE_INIT ((void)0)
@@ -173,7 +244,7 @@
    #define X_ENABLE_READ stepperX.isEnabled()
    
 #endif
-#ifdef X2_IS_TMC
+#if ENABLED(X2_IS_TMC)
    extern TMC26XStepper stepperX2;
    #undef X2_ENABLE_INIT
    #define X2_ENABLE_INIT ((void)0)
@@ -184,7 +255,7 @@
    #undef X2_ENABLE_READ
    #define X2_ENABLE_READ stepperX2.isEnabled()   
 #endif
-#ifdef Y_IS_TMC
+#if ENABLED(Y_IS_TMC)
    extern TMC26XStepper stepperY;
    #undef Y_ENABLE_INIT
    #define Y_ENABLE_INIT ((void)0)
@@ -195,7 +266,7 @@
    #undef Y_ENABLE_READ
    #define Y_ENABLE_READ stepperY.isEnabled()   
 #endif
-#ifdef Y2_IS_TMC
+#if ENABLED(Y2_IS_TMC)
    extern TMC26XStepper stepperY2;
    #undef Y2_ENABLE_INIT
    #define Y2_ENABLE_INIT ((void)0)
@@ -206,7 +277,7 @@
    #undef Y2_ENABLE_READ
    #define Y2_ENABLE_READ stepperY2.isEnabled()     
 #endif
-#ifdef Z_IS_TMC
+#if ENABLED(Z_IS_TMC)
    extern TMC26XStepper stepperZ;
    #undef Z_ENABLE_INIT
    #define Z_ENABLE_INIT ((void)0)
@@ -217,7 +288,7 @@
    #undef Z_ENABLE_READ
    #define Z_ENABLE_READ stepperZ.isEnabled()       
 #endif
-#ifdef Z2_IS_TMC
+#if ENABLED(Z2_IS_TMC)
    extern TMC26XStepper stepperZ2;
    #undef Z2_ENABLE_INIT
    #define Z2_ENABLE_INIT ((void)0)
@@ -228,7 +299,7 @@
    #undef Z2_ENABLE_READ
    #define Z2_ENABLE_READ stepperZ2.isEnabled()   
 #endif
-#ifdef E0_IS_TMC
+#if ENABLED(E0_IS_TMC)
    extern TMC26XStepper stepperE0;
    #undef E0_ENABLE_INIT
    #define E0_ENABLE_INIT ((void)0)
@@ -239,7 +310,7 @@
    #undef E0_ENABLE_READ
    #define E0_ENABLE_READ stepperE0.isEnabled()   
 #endif
-#ifdef E1_IS_TMC
+#if ENABLED(E1_IS_TMC)
    extern TMC26XStepper stepperE1;
    #undef E1_ENABLE_INIT
    #define E1_ENABLE_INIT ((void)0)
@@ -250,7 +321,7 @@
    #undef E1_ENABLE_READ
    #define E1_ENABLE_READ stepperE1.isEnabled()   
 #endif
-#ifdef E2_IS_TMC
+#if ENABLED(E2_IS_TMC)
    extern TMC26XStepper stepperE2;
    #undef E2_ENABLE_INIT
    #define E2_ENABLE_INIT ((void)0)
@@ -261,7 +332,7 @@
    #undef E2_ENABLE_READ
    #define E2_ENABLE_READ stepperE2.isEnabled()   
 #endif
-#ifdef E3_IS_TMC
+#if ENABLED(E3_IS_TMC)
    extern TMC26XStepper stepperE3;
    #undef E3_ENABLE_INIT
    #define E3_ENABLE_INIT ((void)0)
@@ -279,13 +350,13 @@
 // Pin redefines for L6470 drivers. 
 // L640 drivers have step on normal pins, but dir and everything else via SPI
 //////////////////////////////////
-#ifdef HAVE_L6470DRIVER
+#if ENABLED(HAVE_L6470DRIVER)
 
 #include <SPI.h>
 #include <L6470.h>
 
   void L6470_init();
-#ifdef X_IS_L6470
+#if ENABLED(X_IS_L6470)
    extern L6470 stepperX;
    #undef X_ENABLE_INIT 
    #define X_ENABLE_INIT ((void)0)
@@ -306,7 +377,7 @@
    #define X_DIR_READ (stepperX.getStatus() & STATUS_DIR)
    
 #endif
-#ifdef X2_IS_L6470
+#if ENABLED(X2_IS_L6470)
    extern L6470 stepperX2;
    #undef X2_ENABLE_INIT
    #define X2_ENABLE_INIT ((void)0)
@@ -326,7 +397,7 @@
    #undef X2_DIR_READ
    #define X2_DIR_READ (stepperX2.getStatus() & STATUS_DIR)
 #endif
-#ifdef Y_IS_L6470
+#if ENABLED(Y_IS_L6470)
    extern L6470 stepperY;
    #undef Y_ENABLE_INIT
    #define Y_ENABLE_INIT ((void)0)
@@ -346,7 +417,7 @@
    #undef Y_DIR_READ
    #define Y_DIR_READ (stepperY.getStatus() & STATUS_DIR)  
 #endif
-#ifdef Y2_IS_L6470
+#if ENABLED(Y2_IS_L6470)
    extern L6470 stepperY2;
    #undef Y2_ENABLE_INIT
    #define Y2_ENABLE_INIT ((void)0)
@@ -366,7 +437,7 @@
    #undef Y2_DIR_READ
    #define Y2_DIR_READ (stepperY2.getStatus() & STATUS_DIR)   
 #endif
-#ifdef Z_IS_L6470
+#if ENABLED(Z_IS_L6470)
    extern L6470 stepperZ;
    #undef Z_ENABLE_INIT
    #define Z_ENABLE_INIT ((void)0)
@@ -386,7 +457,7 @@
    #undef Y_DIR_READ
    #define Y_DIR_READ (stepperZ.getStatus() & STATUS_DIR)      
 #endif
-#ifdef Z2_IS_L6470
+#if ENABLED(Z2_IS_L6470)
    extern L6470 stepperZ2;
    #undef Z2_ENABLE_INIT
    #define Z2_ENABLE_INIT ((void)0)
@@ -406,7 +477,7 @@
    #undef Y2_DIR_READ
    #define Y2_DIR_READ (stepperZ2.getStatus() & STATUS_DIR)       
 #endif
-#ifdef E0_IS_L6470
+#if ENABLED(E0_IS_L6470)
    extern L6470 stepperE0;
    #undef E0_ENABLE_INIT
    #define E0_ENABLE_INIT ((void)0)
@@ -426,7 +497,7 @@
    #undef E0_DIR_READ
    #define E0_DIR_READ (stepperE0.getStatus() & STATUS_DIR)    
 #endif
-#ifdef E1_IS_L6470
+#if ENABLED(E1_IS_L6470)
    extern L6470 stepperE1;
    #undef E1_ENABLE_INIT
    #define E1_ENABLE_INIT ((void)0)
@@ -446,7 +517,7 @@
    #undef E1_DIR_READ
    #define E1_DIR_READ (stepperE1.getStatus() & STATUS_DIR)  
 #endif
-#ifdef E2_IS_L6470
+#if ENABLED(E2_IS_L6470)
    extern L6470 stepperE2;
    #undef E2_ENABLE_INIT
    #define E2_ENABLE_INIT ((void)0)
@@ -466,7 +537,7 @@
    #undef E2_DIR_READ
    #define E2_DIR_READ (stepperE2.getStatus() & STATUS_DIR)  
 #endif
-#ifdef E3_IS_L6470
+#if ENABLED(E3_IS_L6470)
    extern L6470 stepperE3;
    #undef E3_ENABLE_INIT
    #define E3_ENABLE_INIT ((void)0)

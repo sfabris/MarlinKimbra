@@ -2,12 +2,10 @@
   blinkm.h
   Library header file for BlinkM library
  */
-#if ARDUINO >= 100
-  #include "Arduino.h"
-#else
-  #include "WProgram.h"
-#endif
 
-#include "Wire.h"
+#ifndef BLINKM_H
+#define BLINKM_H
 
 void SendColors(byte red, byte grn, byte blu);
+
+#endif

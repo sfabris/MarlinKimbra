@@ -17,9 +17,6 @@
  * along with the Arduino SdFat Library.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include "Marlin.h"
-#ifdef SDSUPPORT
-
 #ifndef SdFatStructs_h
 #define SdFatStructs_h
 
@@ -337,10 +334,10 @@ struct fat32_boot {
            * Bits 0-3 -- Zero-based number of active FAT.
            *             Only valid if mirroring is disabled.
            * Bits 4-6 -- Reserved.
-           * Bit 7	-- 0 means the FAT is mirrored at runtime into all FATs.
-	         *        -- 1 means only one FAT is active; it is the one referenced
-	         *             in bits 0-3.
-           * Bits 8-15 	-- Reserved.
+           * Bit 7  -- 0 means the FAT is mirrored at runtime into all FATs.
+           *        -- 1 means only one FAT is active; it is the one referenced
+           *             in bits 0-3.
+           * Bits 8-15   -- Reserved.
            */
   uint16_t fat32Flags;
           /**
@@ -641,6 +638,3 @@ static inline uint8_t DIR_IS_FILE_OR_SUBDIR(const dir_t* dir) {
   return (dir->attributes & DIR_ATT_VOLUME_ID) == 0;
 }
 #endif  // SdFatStructs_h
-
-
-#endif

@@ -1,19 +1,13 @@
-#include "Configuration.h"
 
-#ifdef DIGIPOT_I2C
+#include "base.h"
+
+#if ENABLED(DIGIPOT_I2C)
 
 #include "Stream.h"
 #include "utility/twi.h"
 #include "Wire.h"
 
-// Settings for the I2C based DIGIPOT (MCP4451) on Azteeg X3 Pro
-#if MB(5DPRINT)
-  #define DIGIPOT_I2C_FACTOR 117.96
-  #define DIGIPOT_I2C_MAX_CURRENT 1.736
-#else
-  #define DIGIPOT_I2C_FACTOR 106.7
-  #define DIGIPOT_I2C_MAX_CURRENT 2.5
-#endif
+#include "digipot_mcp4451.h"
 
 static byte current_to_wiper(float current) {
   return byte(ceil(float((DIGIPOT_I2C_FACTOR*current))));
@@ -33,8 +27,8 @@ void digipot_i2c_set_current(int channel, float current) {
   // In this case first digipot is at address A0=0, A1= 0, second one is at A0=0, A1= 1
   byte addr = 0x2C; // channel 0-3
   if (channel >= 4) {
-  	addr = 0x2E; // channel 4-7
-  	channel -= 4;
+    addr = 0x2E; // channel 4-7
+    channel -= 4;
   }
 
   // Initial setup
@@ -50,7 +44,7 @@ void digipot_i2c_init() {
   const float digipot_motor_current[] = DIGIPOT_I2C_MOTOR_CURRENTS;
   Wire.begin();
   // setup initial currents as defined in Configuration_adv.h
-  for(int i = 0; i <= sizeof(digipot_motor_current) / sizeof(float); i++) {
+  for(int i = 0; i < COUNT(digipot_motor_current); i++) {
     digipot_i2c_set_current(i, digipot_motor_current[i]);
   }
 }

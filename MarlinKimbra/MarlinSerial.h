@@ -19,19 +19,21 @@
   Modified 28 September 2010 by Mark Sproul
 */
 
-#ifndef MarlinSerial_h
-#define MarlinSerial_h
-#include "Marlin.h"
+#ifndef MARLINSERIAL_H
+#define MARLINSERIAL_H
 
-#ifndef SERIAL_PORT
-  #define SERIAL_PORT 0
+#ifndef cbi
+  #define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
+#endif
+#ifndef sbi
+  #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
 #endif
 
 // The presence of the UBRRH register is used to detect a UART.
 #define UART_PRESENT(port) ((port == 0 && (defined(UBRRH) || defined(UBRR0H))) || \
-						(port == 1 && defined(UBRR1H)) || (port == 2 && defined(UBRR2H)) || \
-						(port == 3 && defined(UBRR3H)))				
-						
+            (port == 1 && defined(UBRR1H)) || (port == 2 && defined(UBRR2H)) || \
+            (port == 3 && defined(UBRR3H)))
+
 // These are macros to build serial port register names for the selected SERIAL_PORT (C preprocessor
 // requires two levels of indirection to expand macro values properly)
 #define SERIAL_REGNAME(registerbase,number,suffix) SERIAL_REGNAME_INTERNAL(registerbase,number,suffix)
@@ -64,7 +66,7 @@
 #define BYTE 0
 
 
-#ifndef AT90USB
+#ifndef USBCON
 // Define constants and variables for buffering incoming serial data.  We're
 // using a ring buffer (I think), in which rx_buffer_head is the index of the
 // location to which to write the next incoming character and rx_buffer_tail
@@ -149,12 +151,12 @@ class MarlinSerial { //: public Stream
     void println(void);
 };
 
-extern MarlinSerial MSerial;
-#endif // !AT90USB
+extern MarlinSerial customizedSerial;
+#endif // !USBCON
 
-// Use the UART for BT in AT90USB configurations
-#if defined(AT90USB) && defined(BTENABLED)
-  extern HardwareSerial bt;
+// Use the UART for Bluetooth in AT90USB configurations
+#if defined(USBCON) && ENABLED(BLUETOOTH)
+  extern HardwareSerial bluetoothSerial;
 #endif
 
 #endif

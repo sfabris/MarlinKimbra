@@ -24,11 +24,9 @@
 #ifndef PLANNER_H
 #define PLANNER_H
 
-#include "Marlin.h"
-
 // This struct is used when buffering the setup for each linear movement "nominal" values are as specified in 
 // the source g-code and may never actually be reached if acceleration management is active.
-typedef struct {
+struct beffering{
   // Fields used by the bresenham algorithm for tracing the line
   long steps[NUM_AXIS];                     // Step count along each axis
   unsigned long step_event_count;           // The number of step events required to complete this block
@@ -37,7 +35,7 @@ typedef struct {
   long acceleration_rate;                   // The acceleration rate used for acceleration calculation
   unsigned char direction_bits;             // The direction bit set for this block (refers to *_DIRECTION_BIT in config.h)
   unsigned char active_driver;              // Selects the active driver
-  #ifdef ADVANCE
+  #if ENABLED(ADVANCE)
     long advance_rate;
     volatile long initial_advance;
     volatile long final_advance;
@@ -60,16 +58,16 @@ typedef struct {
   unsigned long final_rate;                          // The minimal rate at exit
   unsigned long acceleration_st;                     // acceleration steps/sec^2
   unsigned long fan_speed;
-  #ifdef BARICUDA
+  #if ENABLED(BARICUDA)
     unsigned long valve_pressure;
     unsigned long e_to_p_pressure;
   #endif
-  #ifdef LASERBEAM
+  #if ENABLED(LASERBEAM)
     unsigned long laser_ttlmodulation;
   #endif
   volatile char busy;
-} block_t;
-
+};
+typedef struct beffering block_t;
 #define BLOCK_MOD(n) ((n)&(BLOCK_BUFFER_SIZE-1))
 
 // Initialize the motion plan subsystem      
@@ -82,7 +80,7 @@ extern volatile unsigned char block_buffer_head;
 extern volatile unsigned char block_buffer_tail;
 FORCE_INLINE uint8_t movesplanned() { return BLOCK_MOD(block_buffer_head - block_buffer_tail + BLOCK_BUFFER_SIZE); }
 
-#ifdef ENABLE_AUTO_BED_LEVELING
+#if ENABLED(AUTO_BED_LEVELING_FEATURE)
 
   #include "vector_3.h"
 
@@ -110,26 +108,29 @@ FORCE_INLINE uint8_t movesplanned() { return BLOCK_MOD(block_buffer_head - block
 #else
   void plan_buffer_line(const float &x, const float &y, const float &z, const float &e, float feed_rate, const uint8_t &extruder, const uint8_t &driver);
   void plan_set_position(const float &x, const float &y, const float &z, const float &e);
-#endif // ENABLE_AUTO_BED_LEVELING
+#endif // AUTO_BED_LEVELING_FEATURE
 
 void plan_set_e_position(const float &e);
 
+//===========================================================================
+//============================= public variables ============================
+//===========================================================================
+
 extern millis_t minsegmenttime;
 extern float max_feedrate[3 + EXTRUDERS]; // set the max speeds
-extern float max_retraction_feedrate[EXTRUDERS]; // set the max speeds for retraction
 extern float axis_steps_per_unit[3 + EXTRUDERS];
 extern unsigned long max_acceleration_units_per_sq_second[3 + EXTRUDERS]; // Use M201 to override by software
 extern float minimumfeedrate;
 extern float acceleration;         // Normal acceleration mm/s^2  THIS IS THE DEFAULT ACCELERATION for all moves. M204 SXXXX
-extern float retract_acceleration; //  mm/s^2   filament pull-pack and push-forward  while standing still in the other axis M204 TXXXX
+extern float retract_acceleration[EXTRUDERS]; //  mm/s^2   filament pull-pack and push-forward  while standing still in the other axis M204 TXXXX
 extern float travel_acceleration;  // Travel acceleration mm/s^2  THIS IS THE DEFAULT ACCELERATION for all NON printing moves. M204 MXXXX
 extern float max_xy_jerk; //speed than can be stopped at once, if i understand correctly.
 extern float max_z_jerk;
-extern float max_e_jerk;
+extern float max_e_jerk[EXTRUDERS]; // mm/s - initial speed for extruder retract moves
 extern float mintravelfeedrate;
 extern unsigned long axis_steps_per_sqr_second[3 + EXTRUDERS];
 
-#ifdef AUTOTEMP
+#if ENABLED(AUTOTEMP)
   extern bool autotemp_enabled;
   extern float autotemp_max;
   extern float autotemp_min;
