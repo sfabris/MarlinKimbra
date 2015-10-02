@@ -492,8 +492,8 @@
  * Uncomment EASY_LOAD to enable this feature                          *
  *                                                                     *
  ***********************************************************************/
-//#define EASY_LOAD
-#define BOWDEN_LENGTH 250       // mm
+#define EASY_LOAD
+#define BOWDEN_LENGTH 50       // mm
 #define LCD_PURGE_LENGTH 3      // mm
 #define LCD_RETRACT_LENGTH 3    // mm
 #define LCD_PURGE_FEEDRATE 3    // mm/s
@@ -969,8 +969,8 @@
  *                                                                                                                      *
  ************************************************************************************************************************/
 // Uncomment EEPROM_SETTINGS to enable EEPROM support
-//#define EEPROM_SETTINGS
-//#define EEPROM_CHITCHAT // Uncomment this to enable EEPROM Serial responses.
+#define EEPROM_SETTINGS
+#define EEPROM_CHITCHAT // Uncomment this to enable EEPROM Serial responses.
 //#define DISABLE_M503
 /************************************************************************************************************************/
 
@@ -978,7 +978,7 @@
 /*****************************************************************************************
  *************************************** SDCARD *******************************************
  ****************************************************************************************/
-//#define SDSUPPORT                              // Enable SD Card Support in Hardware Console
+#define SDSUPPORT                              // Enable SD Card Support in Hardware Console
 //#define SDSLOW                                 // Use slower SD transfer mode (not normally needed - uncomment if you're getting volume init error)
 //#define SDEXTRASLOW                            // Use even slower SD transfer mode (not normally needed - uncomment if you're getting volume init error)
 //#define SD_CHECK_AND_RETRY                     // Use CRC checks and retries on the SD communication
@@ -1095,7 +1095,7 @@
 // http://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
 // ==> REMEMBER TO INSTALL U8glib to your ARDUINO library folder: http://code.google.com/p/u8glib/wiki/u8glib
-//#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
+#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
 
 // The RepRapWorld REPRAPWORLD_KEYPAD v1.1
 // http://reprapworld.com/?products_details&products_id=202&cPath=1591_1626

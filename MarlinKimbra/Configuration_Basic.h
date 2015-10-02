@@ -29,7 +29,7 @@
 
 // This determines the communication speed of the printer
 // 2400,9600,19200,38400,57600,115200,250000
-#define BAUDRATE 115200
+#define BAUDRATE 250000
 
 // User-specified version info of this build to display in [Pronterface, etc] terminal window during
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
@@ -150,7 +150,7 @@
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
-#define TEMP_SENSOR_BED 0
+#define TEMP_SENSOR_BED 1
 
 //These 2 defines help to calibrate the AD595 sensor in case you get wrong temperature measurements.
 //The measured temperature is defined as "actualTemp = (measuredTemp * TEMP_SENSOR_AD595_GAIN) + TEMP_SENSOR_AD595_OFFSET"
@@ -195,16 +195,16 @@
 
 //Preheat Constants
 #define PLA_PREHEAT_HOTEND_TEMP 190
-#define PLA_PREHEAT_HPB_TEMP 60
-#define PLA_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
+#define PLA_PREHEAT_HPB_TEMP 50
+#define PLA_PREHEAT_FAN_SPEED 0   // Insert Value between 0 and 255
 
 #define ABS_PREHEAT_HOTEND_TEMP 240
 #define ABS_PREHEAT_HPB_TEMP 100
-#define ABS_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
+#define ABS_PREHEAT_FAN_SPEED 0   // Insert Value between 0 and 255
 
 #define GUM_PREHEAT_HOTEND_TEMP 230
 #define GUM_PREHEAT_HPB_TEMP 60
-#define GUM_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
+#define GUM_PREHEAT_FAN_SPEED 0   // Insert Value between 0 and 255
 /*****************************************************************************************************/
 
 
